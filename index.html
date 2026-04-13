@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Patroonbrekers — Herken jij jezelf?</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --creme: #FAF5EC;
+  --creme-2: #F2E8D6;
+  --goud: #D4B06A;
+  --goud-dark: #A07D28;
+  --roze: #9B4A6A;
+  --roze-light: #F2E0E6;
+  --roze-dark: #7A3050;
+  --roze-diep: #4E1A32;
+  --tekst: #1A1A1A;
+  --tekst-mid: #3A3A3A;
+  --tekst-licht: #6B6B6B;
+  --border: #E8D8BE;
+}
+
+html { scroll-behavior: smooth; }
+body { font-family: 'Jost', sans-serif; background: var(--creme); color: var(--tekst); min-height: 100vh; overflow-x: hidden; }
+
+.header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 1rem 2rem;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(250,245,236,0.93);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+}
+
+.logo { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; }
+.logo span { color: var(--roze); }
+
+.progress-track { display: flex; gap: 6px; align-items: center; }
+.progress-pip { width: 6px; height: 6px; border-radius: 50%; background: var(--border); transition: all 0.4s ease; }
+.progress-pip.lit { background: var(--roze); transform: scale(1.3); }
+.progress-pip.done { background: var(--goud); }
+
+.app { position: relative; min-height: 100vh; }
+
+.scene {
+  min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  padding: 6rem 2rem 4rem;
+  opacity: 0; transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+  pointer-events: none;
+  position: absolute; top: 0; left: 0; right: 0;
+}
+.scene.active { opacity: 1; transform: translateY(0); pointer-events: all; position: relative; }
+.scene.exit { opacity: 0; transform: translateY(-20px); pointer-events: none; position: absolute; }
+
+.scene-inner { max-width: 580px; width: 100%; text-align: center; }
+
+.opening-label {
+  font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--goud-dark); font-weight: 400; margin-bottom: 2rem;
+  opacity: 0; animation: fadeIn 1s ease 0.3s forwards;
+}
+.opening-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.2rem, 5vw, 3.2rem); font-weight: 300; line-height: 1.25;
+  margin-bottom: 1.5rem;
+  opacity: 0; animation: fadeIn 1s ease 0.6s forwards;
+}
+.opening-title em { font-style: italic; color: var(--roze); }
+.opening-sub {
+  font-size: 1rem; color: var(--tekst-licht); line-height: 1.7; font-weight: 300; margin-bottom: 3rem;
+  opacity: 0; animation: fadeIn 1s ease 0.9s forwards;
+}
+
+.btn-start {
+  display: inline-block; background: var(--roze); color: white; border: none;
+  border-radius: 3rem; padding: 1rem 2.5rem;
+  font-family: 'Jost', sans-serif; font-size: 0.9rem; font-weight: 400;
+  letter-spacing: 0.08em; cursor: pointer; transition: background 0.3s, transform 0.2s;
+  opacity: 0; animation: fadeIn 1s ease 1.2s forwards;
+}
+.btn-start:hover { background: var(--roze-dark); transform: translateY(-2px); }
+
+.zin-nummer { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--goud-dark); margin-bottom: 1.5rem; font-weight: 400; }
+.goud-lijn { width: 40px; height: 1px; background: var(--goud); margin: 0 auto 2rem; opacity: 0.6; }
+
+.zin-tekst {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.5rem, 3.5vw, 2.1rem); font-weight: 300; line-height: 1.45;
+  margin-bottom: 0.75rem;
+}
+.zin-tekst em { font-style: italic; color: var(--roze-dark); }
+.zin-sub { font-size: 0.88rem; color: var(--tekst-licht); line-height: 1.7; margin-bottom: 2.5rem; font-weight: 300; font-style: italic; }
+
+.knoppen { display: flex; flex-direction: column; gap: 0.75rem; max-width: 380px; margin: 0 auto; }
+
+.btn-ja {
+  background: var(--roze-light); border: 1.5px solid var(--roze); color: var(--roze-dark);
+  border-radius: 3rem; padding: 0.85rem 2rem;
+  font-family: 'Jost', sans-serif; font-size: 0.88rem; font-weight: 500;
+  cursor: pointer; transition: all 0.25s ease; letter-spacing: 0.03em;
+}
+.btn-ja:hover { background: var(--roze); color: white; transform: translateY(-2px); }
+
+.btn-nee {
+  background: transparent; border: 1px solid var(--border); color: var(--tekst-licht);
+  border-radius: 3rem; padding: 0.85rem 2rem;
+  font-family: 'Jost', sans-serif; font-size: 0.88rem; font-weight: 300;
+  cursor: pointer; transition: all 0.25s ease; letter-spacing: 0.03em;
+}
+.btn-nee:hover { border-color: var(--tekst-licht); color: var(--tekst-mid); }
+
+.herkenning {
+  background: var(--roze-diep); color: white; border-radius: 1.5rem;
+  padding: 2rem; margin-bottom: 2rem; text-align: left;
+}
+.herkenning-label { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--goud); margin-bottom: 1rem; font-weight: 400; }
+.herkenning-tekst { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 300; line-height: 1.6; color: rgba(255,255,255,0.92); font-style: italic; }
+
+.open-vraag-label { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--goud-dark); margin-bottom: 1.5rem; font-weight: 400; }
+.open-vraag-tekst { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.4rem, 3vw, 1.9rem); font-weight: 300; line-height: 1.5; margin-bottom: 0.75rem; }
+.open-vraag-sub { font-size: 0.85rem; color: var(--tekst-licht); line-height: 1.7; margin-bottom: 2rem; font-style: italic; font-weight: 300; }
+
+.open-input-wrapper { max-width: 440px; margin: 0 auto; }
+.open-input {
+  width: 100%; background: white; border: 1.5px solid var(--border);
+  border-radius: 1rem; padding: 1rem 1.25rem;
+  font-family: 'Jost', sans-serif; font-size: 0.95rem; color: var(--tekst);
+  line-height: 1.6; resize: none; outline: none;
+  transition: border-color 0.2s; min-height: 90px;
+  margin-bottom: 1rem;
+}
+.open-input:focus { border-color: var(--roze); }
+.open-input::placeholder { color: #ccc; font-style: italic; }
+.btn-verstuur {
+  display: inline-block; background: var(--roze); color: white; border: none;
+  border-radius: 3rem; padding: 0.9rem 2.5rem;
+  font-family: 'Jost', sans-serif; font-size: 0.88rem; font-weight: 500;
+  letter-spacing: 0.05em; cursor: pointer; transition: all 0.25s ease;
+}
+.btn-verstuur:hover { background: var(--roze-dark); transform: translateY(-2px); }
+.btn-verstuur:disabled { background: var(--border); cursor: not-allowed; transform: none; }
+
+.laad { display: flex; justify-content: center; gap: 6px; padding: 2rem 0; }
+.laad span { width: 8px; height: 8px; border-radius: 50%; background: var(--goud); animation: bounce 1.2s infinite; }
+.laad span:nth-child(2) { animation-delay: 0.2s; }
+.laad span:nth-child(3) { animation-delay: 0.4s; }
+
+.uitslag-header { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--goud-dark); margin-bottom: 1.5rem; font-weight: 400; }
+.uitslag-naam { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 400; color: var(--roze-dark); margin-bottom: 0.5rem; line-height: 1.2; }
+.uitslag-ondertitel { font-size: 0.85rem; color: var(--tekst-licht); margin-bottom: 2rem; font-weight: 300; letter-spacing: 0.03em; }
+
+.uitslag-blokken { text-align: left; display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.25rem; }
+.uitslag-blok {
+  background: white; border: 1px solid var(--border); border-radius: 1rem;
+  padding: 1.25rem 1.5rem;
+  opacity: 0; transform: translateY(15px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.uitslag-blok.zichtbaar { opacity: 1; transform: translateY(0); }
+.blok-label { font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--goud-dark); font-weight: 500; margin-bottom: 0.5rem; }
+.blok-tekst { font-size: 0.92rem; line-height: 1.8; color: var(--tekst-mid); font-weight: 300; }
+
+.perspectief-blok {
+  background: var(--creme-2); border: 1px solid var(--border); border-radius: 1rem;
+  padding: 1.5rem; margin-bottom: 1.25rem; text-align: left;
+  opacity: 0; transform: translateY(15px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.perspectief-blok.zichtbaar { opacity: 1; transform: translateY(0); }
+.perspectief-titel { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 500; color: var(--roze-dark); margin-bottom: 1rem; }
+.perspectief-stap { display: flex; gap: 1rem; align-items: flex-start; margin-bottom: 0.85rem; }
+.perspectief-stap:last-child { margin-bottom: 0; }
+.stap-nr { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 300; color: var(--goud); flex-shrink: 0; line-height: 1.2; }
+.stap-tekst { font-size: 0.9rem; line-height: 1.7; color: var(--tekst-mid); font-weight: 300; }
+.stap-tekst strong { color: var(--roze-dark); font-weight: 500; }
+
+.cta-blok {
+  background: var(--roze-diep); border-radius: 1.25rem; padding: 2rem; text-align: center;
+  opacity: 0; transform: translateY(15px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.cta-blok.zichtbaar { opacity: 1; transform: translateY(0); }
+.cta-tekst { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 300; color: rgba(255,255,255,0.92); line-height: 1.6; margin-bottom: 0.75rem; font-style: italic; }
+.cta-sub { font-size: 0.82rem; color: rgba(255,255,255,0.6); margin-bottom: 1.5rem; font-weight: 300; line-height: 1.6; }
+.btn-wachtlijst {
+  display: inline-block; background: var(--goud); color: var(--roze-diep);
+  text-decoration: none; border-radius: 3rem; padding: 1rem 2.5rem;
+  font-family: 'Jost', sans-serif; font-size: 0.88rem; font-weight: 500;
+  letter-spacing: 0.05em; transition: all 0.3s ease;
+}
+.btn-wachtlijst:hover { background: #e8c97a; transform: translateY(-2px); }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes bounce { 0%, 60%, 100% { transform: translateY(0); opacity: 0.3; } 30% { transform: translateY(-8px); opacity: 1; } }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo">PATROON<span>BREKERS</span></div>
+  <div class="progress-track" id="progressTrack"></div>
+</div>
+
+<div class="app" id="app"></div>
+
+<script>
+const ZINNEN = [
+  {
+    id: 0,
+    tekst: "Je hebt geleerd dat liefde iets is wat je <em>verdient</em> door te geven. Niet door te ontvangen.",
+    sub: "Dat je er gewoon mocht zijn, zomaar, zonder iets te doen daarvoor — dat gevoel ken je eigenlijk niet zo goed.",
+    ja_reactie: "Ja, dit herken ik",
+    nee_reactie: "Nee, dit ben ik niet",
+    herkenning: "Geven voelt veilig. Ontvangen voelt ongemakkelijk. Bijna alsof je het niet waard bent.",
+    patronen: { ja: ["pleaser", "redder"], nee: [] }
+  },
+  {
+    id: 1,
+    tekst: "De stem in je hoofd die zegt dat je <em>te veel</em> bent — ken je die?",
+    sub: "Te intens. Te emotioneel. Te veeleisend. Je hebt die stem zo vaak gehoord dat je hem bent gaan geloven.",
+    ja_reactie: "Ja, die stem ken ik",
+    nee_reactie: "Nee, dat speelt niet bij mij",
+    herkenning: "Die stem is niet van jou. Hij is van iemand die je ooit klein heeft gemaakt.",
+    patronen: { ja: ["pleaser", "perfectionist"], nee: [] }
+  },
+  {
+    id: 2,
+    tekst: "Je bent sterk. Altijd al geweest. Maar soms vraag je je af of <em>die kracht je ook in de weg zit.</em>",
+    sub: "Want als je altijd alles zelf oplost, hoeft niemand voor jou te zorgen. En misschien is dat ook wel makkelijker zo.",
+    ja_reactie: "Ja, dat herken ik",
+    nee_reactie: "Dit geldt niet voor mij",
+    herkenning: "Onafhankelijkheid als pantser. Het beschermt je. Maar het houdt anderen ook buiten.",
+    patronen: { ja: ["alleen-doener", "scanner"], nee: [] }
+  },
+  {
+    id: 3,
+    tekst: "Je weet precies wat een ander nodig heeft. Maar wat <em>jij</em> nodig hebt — dat is een stuk vager.",
+    sub: "Je bent zo gewend geraakt aan aanpassen, verzorgen, erbij zijn voor de ander, dat je eigen stem zacht is geworden.",
+    ja_reactie: "Ja, dit klopt",
+    nee_reactie: "Nee, ik weet wel wat ik wil",
+    herkenning: "Wanneer heb je voor het laatst iets gedaan puur omdat jíj het wilde? Niet omdat het moest, niet voor een ander.",
+    patronen: { ja: ["pleaser", "redder"], nee: ["scanner", "alleen-doener"] }
+  },
+  {
+    id: 4,
+    tekst: "Er is een verlangen in je dat je soms liever niet te hard aanraakt. Een verlangen naar <em>echte verbinding.</em>",
+    sub: "Waarbij je niet hoeft te presteren om erbij te horen. Waarbij je gezien wordt zoals je bent.",
+    ja_reactie: "Ja, dat verlangen ken ik",
+    nee_reactie: "Dat speelt minder bij mij",
+    herkenning: "Dat verlangen is niet zwak. Het is precies het goede signaal.",
+    patronen: { ja: ["scanner", "pleaser", "redder", "alleen-doener"], nee: [] }
+  },
+  {
+    id: 5,
+    tekst: "Je hebt al veel geprobeerd. En toch sta je hier nog — want <em>iets klopt er nog niet.</em>",
+    sub: "Je hebt steeds aan de buitenkant gewerkt. De situatie veranderd, de relatie beëindigd, jezelf aangepast. Maar het patroon bleef.",
+    ja_reactie: "Ja, zo voelt het",
+    nee_reactie: "Nee, ik ben nog niet zo ver geweest",
+    herkenning: "Het patroon zit dieper dan de situaties eromheen. Daar beginnen we.",
+    patronen: { ja: ["perfectionist", "scanner"], nee: [] }
+  }
+];
+
+const PATRONEN_DATA = {
+  pleaser: {
+    naam: "De Pleaser",
+    kern: "Je stelt jezelf opzij voor de harmonie. Je zegt ja terwijl je nee bedoelt. Je voelt je verantwoordelijk voor hoe anderen zich voelen.",
+    prijs: "Wat het je kost: je weet niet meer precies wie je bent los van de mensen om je heen. Je eigen stem is zacht geworden.",
+    hoop: "Dit patroon is ooit ontstaan om veilig te zijn. En je bent inmiddels iemand die het anders kan doen."
+  },
+  redder: {
+    naam: "De Redder",
+    kern: "Je kiest mensen die jij kunt helpen. Je voelt je pas echt waardevol als je nodig bent.",
+    prijs: "Wat het je kost: echte gelijkwaardige liefde voelt onbekend. Want als de ander jou niet nodig heeft, wat ben jij dan nog?",
+    hoop: "Je waarde zit niet in wat je doet voor anderen. Dat is iets wat je kunt leren voelen."
+  },
+  perfectionist: {
+    naam: "De Perfectionist",
+    kern: "Je stelt hoge eisen aan jezelf. Fouten voelen als bewijs dat je niet goed genoeg bent.",
+    prijs: "Wat het je kost: je leeft in de toekomst. Als ik dit bereikt heb, dan mag ik er zijn. Maar die dag komt steeds niet.",
+    hoop: "Achter die hoge lat zit iemand die heel graag gezien wil worden. Die persoon verdient het om er te zijn, nu al."
+  },
+  scanner: {
+    naam: "De Scanner",
+    kern: "Je observeert. Je houdt iedereen een beetje op afstand. Je maakt verbinding, maar als het te dichtbij komt, doe je onbewust een stapje terug.",
+    prijs: "Wat het je kost: de intimiteit waar je naar verlangt, houd je zelf op een armlengte afstand.",
+    hoop: "Dichtbij zijn is kwetsbaar. En kwetsbaar zijn is iets wat je ooit hebt afgeleerd. Je kunt het ook weer aanleren."
+  },
+  "alleen-doener": {
+    naam: "De Alleen-doener",
+    kern: "Je hebt geleerd dat je het zelf moet doen. Je hebt ervaren dat anderen er niet altijd voor je waren. Dus leerde je het zelf te doen.",
+    prijs: "Wat het je kost: je vraagt niet om hulp. Je laat niemand echt toe. De verbinding die je wil, houd je zelf buiten door die muur van zelfstandigheid.",
+    hoop: "Je kracht is echt. En je hoeft niet meer alleen te staan. Dat is wat er te leren valt: veiliger worden met anderen."
+  }
+};
+
+const TOTAAL_ZINNEN = ZINNEN.length;
+let scores = { pleaser: 0, redder: 0, perfectionist: 0, scanner: 0, "alleen-doener": 0 };
+let jaAntwoorden = [];
+let eigenZin = "";
+
+function maakProgress() {
+  const track = document.getElementById('progressTrack');
+  track.innerHTML = '';
+  for (let i = 0; i < TOTAAL_ZINNEN + 1; i++) {
+    const pip = document.createElement('div');
+    pip.className = 'progress-pip';
+    pip.id = `pip-${i}`;
+    track.appendChild(pip);
+  }
+}
+
+function updateProgress(actief) {
+  for (let i = 0; i < TOTAAL_ZINNEN + 1; i++) {
+    const pip = document.getElementById(`pip-${i}`);
+    if (!pip) continue;
+    if (i < actief) pip.className = 'progress-pip done';
+    else if (i === actief) pip.className = 'progress-pip lit';
+    else pip.className = 'progress-pip';
+  }
+}
+
+function toonScene(html, sceneId) {
+  const app = document.getElementById('app');
+  const oudeScenes = app.querySelectorAll('.scene.active');
+  oudeScenes.forEach(s => {
+    s.classList.remove('active');
+    s.classList.add('exit');
+    setTimeout(() => s.remove(), 800);
+  });
+  setTimeout(() => {
+    const div = document.createElement('div');
+    div.className = 'scene';
+    div.id = sceneId || 'scene-' + Date.now();
+    div.innerHTML = html;
+    app.appendChild(div);
+    requestAnimationFrame(() => requestAnimationFrame(() => div.classList.add('active')));
+  }, oudeScenes.length ? 350 : 0);
+}
+
+function toonOpening() {
+  toonScene(`
+    <div class="scene-inner">
+      <p class="opening-label">Caroline Korsten, De Liefdespsycholoog</p>
+      <h1 class="opening-title">Zelfde man, ander jasje...<br>zelfde verhaal.<br><em>De man is niet het probleem.</em></h1>
+      <p class="opening-sub">Ik leg je een paar zinnen voor. Herken je ze? Dan weet je aan het einde welk patroon jij steeds herhaalt. En waarom juist díe man steeds op je pad komt.</p>
+      <button class="btn-start" onclick="startSpiegel()">Ja, ik wil weten wat mijn patroon is</button>
+    </div>
+  `, 'scene-opening');
+  maakProgress();
+}
+
+function startSpiegel() { toonZin(0); }
+
+function toonZin(index) {
+  if (index >= ZINNEN.length) { toonOpenVraag(); return; }
+  updateProgress(index);
+  const z = ZINNEN[index];
+  toonScene(`
+    <div class="scene-inner">
+      <p class="zin-nummer">${index + 1} van ${TOTAAL_ZINNEN}</p>
+      <div class="goud-lijn"></div>
+      <p class="zin-tekst">${z.tekst}</p>
+      <p class="zin-sub">${z.sub}</p>
+      <div class="knoppen">
+        <button class="btn-ja" onclick="antwoord(${index}, true)">${z.ja_reactie}</button>
+        <button class="btn-nee" onclick="antwoord(${index}, false)">${z.nee_reactie}</button>
+      </div>
+    </div>
+  `, `scene-zin-${index}`);
+}
+
+function antwoord(index, ja) {
+  const z = ZINNEN[index];
+  if (ja) {
+    z.patronen.ja.forEach(p => { if (scores[p] !== undefined) scores[p]++; });
+    jaAntwoorden.push({ zin: z.tekst.replace(/<[^>]+>/g, ''), herkenning: z.herkenning });
+    toonHerkenning(index, z.herkenning);
+  } else {
+    z.patronen.nee.forEach(p => { if (scores[p] !== undefined) scores[p]++; });
+    toonZin(index + 1);
+  }
+}
+
+function toonHerkenning(zinIndex, herkenningTekst) {
+  const volgende = zinIndex + 1;
+  const isLaatste = volgende >= TOTAAL_ZINNEN;
+  toonScene(`
+    <div class="scene-inner">
+      <div class="herkenning">
+        <p class="herkenning-label">Wat ik hoor</p>
+        <p class="herkenning-tekst">"${herkenningTekst}"</p>
+      </div>
+      <button class="btn-ja" onclick="${isLaatste ? 'toonOpenVraag()' : `toonZin(${volgende})`}" style="max-width:380px; margin:0 auto; display:block;">
+        ${isLaatste ? 'Bijna klaar, nog één vraag' : 'Verder'}
+      </button>
+    </div>
+  `, `scene-herkenning-${zinIndex}`);
+}
+
+function toonOpenVraag() {
+  updateProgress(TOTAAL_ZINNEN);
+  toonScene(`
+    <div class="scene-inner">
+      <p class="open-vraag-label">Laatste vraag</p>
+      <div class="goud-lijn"></div>
+      <p class="open-vraag-tekst">Wat is de zin die jij jezelf het vaakst hoort zeggen over liefde of relaties?</p>
+      <p class="open-vraag-sub">Schrijf de eerste zin die in je opkomt. Er is geen goed of fout antwoord.</p>
+      <div class="open-input-wrapper">
+        <textarea class="open-input" id="eigenInput" placeholder="De eerste zin die in je opkomt..." rows="3"></textarea>
+        <button class="btn-verstuur" id="verstuurBtn" onclick="verstuurOpenVraag()">Bekijk mijn uitslag</button>
+      </div>
+    </div>
+  `, 'scene-open');
+}
+
+function verstuurOpenVraag() {
+  const input = document.getElementById('eigenInput');
+  const btn = document.getElementById('verstuurBtn');
+  const tekst = input ? input.value.trim() : '';
+  eigenZin = tekst;
+  if (btn) btn.disabled = true;
+  toonLaad();
+  genereerUitslag();
+}
+
+function toonLaad() {
+  for (let i = 0; i < TOTAAL_ZINNEN + 1; i++) {
+    const pip = document.getElementById(`pip-${i}`);
+    if (pip) pip.className = 'progress-pip done';
+  }
+  toonScene(`
+    <div class="scene-inner">
+      <p class="zin-nummer" style="margin-bottom:2rem;">Jouw uitslag wordt samengesteld...</p>
+      <div class="laad"><span></span><span></span><span></span></div>
+    </div>
+  `, 'scene-laad');
+}
+
+function bepaalPatroon() {
+  let max = -1; let dominant = 'pleaser';
+  Object.entries(scores).forEach(([p, s]) => { if (s > max) { max = s; dominant = p; } });
+  return dominant;
+}
+
+async function genereerUitslag() {
+  const dominant = bepaalPatroon();
+  const patroon = PATRONEN_DATA[dominant];
+  const herkenningen = jaAntwoorden.map(a => `"${a.zin}"`).join(', ');
+
+  const SYSTEEM = `Je bent Caroline Korsten, De Liefdespsycholoog, met 20 jaar ervaring als GZ-psycholoog en relatietherapeut. Je schrijft een persoonlijke uitslag voor een vrouw van 45+.
+
+TOON: Warm, direct, eerlijk. Schrijf zoals je praat. Geen jargon. Geen wollige taal. Korte en lange zinnen afwisselend. Elke zin telt.
+
+VERBODEN CONSTRUCTIES — gebruik deze nooit:
+- "niet X maar Y" (bijv. "niet zwakker worden, maar veiliger")
+- "geen X maar Y" (bijv. "geen quiz maar een gesprek")
+- "dit maar dat"
+- zinnen die beginnen met "Niet omdat"
+- zinnen die beginnen met "Maar"
+
+ALS JE EEN TEGENSTELLING WIL UITDRUKKEN, doe het zo:
+- Schrijf twee losse zinnen. De spanning ontstaat vanzelf.
+- Bijvoorbeeld: "Je kracht is echt. En je hebt geleerd die kracht alleen in te zetten."
+- Bijvoorbeeld: "Dichtbij zijn is kwetsbaar. En kwetsbaar zijn is iets wat je ooit hebt afgeleerd."
+- Nooit: "Dichtbij zijn is kwetsbaar, maar je kunt het leren." 
+
+JE SCHRIJFT PRECIES DRIE ALINEA'S. Geen titels, geen koppen, geen markdown, geen sterretjes. Alleen lopende tekst. Scheid de alinea's met een lege regel.
+
+ALINEA 1:
+Begin met "Wat ik in jou zie..." Beschrijf het patroon concreet. Gebruik haar eigen zin die ze invulde als spiegel — echo die letterlijk terug en laat zien wat jij daarin hoort. Verbind dit met wat ze herkende. Noem de naam van het patroon aan het einde van deze alinea.
+
+ALINEA 2:
+Benoem wat dit patroon haar kost. Heel concreet. Wat mist ze? Wat geeft ze weg? Koppel dit aan haar eigen woorden en keuzes. Iets wat ze direct herkent uit haar leven.
+
+ALINEA 3:
+Dit patroon is wat ze geleerd heeft. Ze hoeft het niet kwijt te raken, ze leert het herkennen op het moment dat het gebeurt. Dan kan ze een andere keuze maken. En dat trekt een ander type man aan. Sluit af met één zin die een vuurtje aansteekt.
+
+BELANGRIJK: Geen titels. Geen koppen. Geen **tekst**. Geen markdown. Alleen drie alinea's lopende tekst gescheiden door een lege regel.`;
+
+  const userMsg = `Het dominante patroon: ${patroon.naam}
+
+Zinnen die ze herkenden: ${herkenningen || 'geen specifieke zinnen aangeklikt'}
+
+Haar eigen zin over liefde en relaties: "${eigenZin || 'ze heeft niets ingevuld'}"
+
+Schrijf nu haar persoonlijke uitslag.`;
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 900,
+        system: SYSTEEM,
+        messages: [{ role: 'user', content: userMsg }]
+      })
+    });
+    const data = await response.json();
+    const tekst = data.content?.[0]?.text || '';
+    toonUitslag(dominant, tekst);
+  } catch(e) {
+    toonUitslag(dominant, null);
+  }
+}
+
+function toonUitslag(dominant, aiTekst) {
+  const patroon = PATRONEN_DATA[dominant];
+  const alineas = aiTekst
+    ? aiTekst
+        .replace(/\*\*[^*]+\*\*/g, m => m.replace(/\*\*/g, ''))
+        .replace(/^#{1,3}\s+/gm, '')
+        .split('\n\n')
+        .map(p => p.replace(/\n/g, ' ').trim())
+        .filter(p => p.length > 20)
+        .slice(0, 3)
+    : [patroon.kern, patroon.prijs, patroon.hoop];
+
+  toonScene(`
+    <div class="scene-inner">
+      <p class="uitslag-header">Jouw uitslag</p>
+      <h2 class="uitslag-naam">${patroon.naam}</h2>
+      <p class="uitslag-ondertitel">Dit is het patroon dat ik in jou herken</p>
+
+      <div class="uitslag-blokken" id="uitslagBlokken">
+        ${alineas.map((a, i) => `
+          <div class="uitslag-blok" id="blok-${i}">
+            <p class="blok-label">${['Wat ik in jou zie', 'Wat het je kost', 'Wat er mogelijk is'][i] || ''}</p>
+            <p class="blok-tekst">${a.trim()}</p>
+          </div>
+        `).join('')}
+      </div>
+
+      <div class="perspectief-blok" id="perspectief">
+        <p class="perspectief-titel">Wat Patroonbrekers doet</p>
+        <div class="perspectief-stap">
+          <span class="stap-nr">1</span>
+          <p class="stap-tekst">Je leert het patroon <strong>herkennen op het moment dat het gebeurt.</strong> Niet achteraf. Op het moment zelf.</p>
+        </div>
+        <div class="perspectief-stap">
+          <span class="stap-nr">2</span>
+          <p class="stap-tekst">Je oefent met <strong>een andere keuze maken</strong> in die momenten. Kleine stappen, geen grote gebaren.</p>
+        </div>
+        <div class="perspectief-stap">
+          <span class="stap-nr">3</span>
+          <p class="stap-tekst">Je merkt dat je <strong>een ander type man aantrekt.</strong> Omdat jij anders in de wereld staat.</p>
+        </div>
+      </div>
+
+      <div class="cta-blok" id="ctaBlok">
+        <p class="cta-tekst">"Patroonbrekers is voor vrouwen zoals jij, boven de 45, klaar om het anders te gaan doen."</p>
+        <p class="cta-sub">Het programma opent binnenkort. Zet je op de wachtlijst en je bent als eerste.</p>
+        <a href="https://www.liefdespsycholoog.nl/wachtlijst-patroonbrekers" target="_blank" class="btn-wachtlijst">Ja, zet me op de wachtlijst</a>
+      </div>
+    </div>
+  `, 'scene-uitslag');
+
+  setTimeout(() => {
+    alineas.forEach((_, i) => {
+      setTimeout(() => {
+        const blok = document.getElementById(`blok-${i}`);
+        if (blok) blok.classList.add('zichtbaar');
+      }, i * 350);
+    });
+    setTimeout(() => {
+      const p = document.getElementById('perspectief');
+      if (p) p.classList.add('zichtbaar');
+    }, alineas.length * 350 + 200);
+    setTimeout(() => {
+      const cta = document.getElementById('ctaBlok');
+      if (cta) cta.classList.add('zichtbaar');
+    }, alineas.length * 350 + 700);
+  }, 300);
+}
+
+toonOpening();
+</script>
+</body>
+</html>
