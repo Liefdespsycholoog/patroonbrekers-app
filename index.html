@@ -213,57 +213,57 @@ body { font-family: 'Jost', sans-serif; background: var(--creme); color: var(--t
 const ZINNEN = [
   {
     id: 0,
-    tekst: "Je hebt geleerd dat liefde iets is wat je <em>verdient</em> door te geven. Niet door te ontvangen.",
-    sub: "Dat je er gewoon mocht zijn, zomaar, zonder iets te doen daarvoor — dat gevoel ken je eigenlijk niet zo goed.",
+    tekst: "Je weet precies wanneer iemand anders ontevreden is. <em>Nog voordat hij het zegt.</em>",
+    sub: "Je voelt de stemming in de kamer. Je past je aan. Je zorgt dat het goed blijft. Maar niet omdat je dat wil, omdat het anders voelt als jouw fout.",
     ja_reactie: "Ja, dit herken ik",
     nee_reactie: "Nee, dit ben ik niet",
-    herkenning: "Geven voelt veilig. Ontvangen voelt ongemakkelijk. Bijna alsof je het niet waard bent.",
-    patronen: { ja: ["pleaser", "redder"], nee: [] }
-  },
-  {
-    id: 1,
-    tekst: "De stem in je hoofd die zegt dat je <em>te veel</em> bent — ken je die?",
-    sub: "Te intens. Te emotioneel. Te veeleisend. Je hebt die stem zo vaak gehoord dat je hem bent gaan geloven.",
-    ja_reactie: "Ja, die stem ken ik",
-    nee_reactie: "Nee, dat speelt niet bij mij",
-    herkenning: "Die stem is niet van jou. Hij is van iemand die je ooit klein heeft gemaakt.",
+    herkenning: "Die antenne is niet normaal. Hij is er niet voor niets. En hij kost je meer dan je denkt.",
     patronen: { ja: ["pleaser", "perfectionist"], nee: [] }
   },
   {
-    id: 2,
-    tekst: "Je bent sterk. Altijd al geweest. Maar soms vraag je je af of <em>die kracht je ook in de weg zit.</em>",
-    sub: "Want als je altijd alles zelf oplost, hoeft niemand voor jou te zorgen. En misschien is dat ook wel makkelijker zo.",
+    id: 1,
+    tekst: "Je houdt het meest van mensen <em>die je nodig hebben.</em>",
+    sub: "Als iemand het moeilijk heeft, word jij groter. Je weet wat hij nodig heeft. Je zorgt. Maar als hij het goed gaat, merk je dat je jezelf soms minder nodig voelt.",
     ja_reactie: "Ja, dat herken ik",
-    nee_reactie: "Dit geldt niet voor mij",
-    herkenning: "Onafhankelijkheid als pantser. Het beschermt je. Maar het houdt anderen ook buiten.",
-    patronen: { ja: ["alleen-doener", "scanner"], nee: [] }
+    nee_reactie: "Nee, dit ben ik niet",
+    herkenning: "Zorgen voelt als liefde. Maar ergens weet je dat het ook een manier is om jezelf onmisbaar te maken.",
+    patronen: { ja: ["redder", "pleaser"], nee: [] }
+  },
+  {
+    id: 2,
+    tekst: "Je bent <em>harder voor jezelf</em> dan voor wie dan ook.",
+    sub: "Wat een ander goed genoeg vindt, is voor jou net niet. Je ziet de fout al voordat hij er is. Rusten voelt als iets wat je nog niet verdiend hebt.",
+    ja_reactie: "Ja, zo ben ik",
+    nee_reactie: "Nee, dit geldt niet voor mij",
+    herkenning: "Die hoge lat beschermt je. Als je het perfect doet, kan niemand zeggen dat je tekortschiet.",
+    patronen: { ja: ["perfectionist", "alleen-doener"], nee: [] }
   },
   {
     id: 3,
-    tekst: "Je weet precies wat een ander nodig heeft. Maar wat <em>jij</em> nodig hebt — dat is een stuk vager.",
-    sub: "Je bent zo gewend geraakt aan aanpassen, verzorgen, erbij zijn voor de ander, dat je eigen stem zacht is geworden.",
+    tekst: "Je let altijd op. Op wat hij zegt, hoe hij het zegt, <em>wat hij niet zegt.</em>",
+    sub: "Je hebt geleerd dat mensen je kunnen kwetsen. Dus hou je ze een beetje op afstand. Voor de zekerheid.",
     ja_reactie: "Ja, dit klopt",
-    nee_reactie: "Nee, ik weet wel wat ik wil",
-    herkenning: "Wanneer heb je voor het laatst iets gedaan puur omdat jíj het wilde? Niet omdat het moest, niet voor een ander.",
-    patronen: { ja: ["pleaser", "redder"], nee: ["scanner", "alleen-doener"] }
+    nee_reactie: "Nee, ik herken dit niet",
+    herkenning: "Die waakzaamheid heeft je ooit beschermd. Maar hij houdt nu ook de goede mensen buiten.",
+    patronen: { ja: ["scanner", "perfectionist"], nee: [] }
   },
   {
     id: 4,
-    tekst: "Er is een verlangen in je dat je soms liever niet te hard aanraakt. Een verlangen naar <em>echte verbinding.</em>",
-    sub: "Waarbij je niet hoeft te presteren om erbij te horen. Waarbij je gezien wordt zoals je bent.",
-    ja_reactie: "Ja, dat verlangen ken ik",
-    nee_reactie: "Dat speelt minder bij mij",
-    herkenning: "Dat verlangen is niet zwak. Het is precies het goede signaal.",
-    patronen: { ja: ["scanner", "pleaser", "redder", "alleen-doener"], nee: [] }
+    tekst: "Hulp vragen voelt bijna alsof je toegeeft <em>dat je het niet kunt.</em>",
+    sub: "Je doet het liever zelf. Onafhankelijk zijn voelt veilig. Afhankelijk zijn voelt gevaarlijk.",
+    ja_reactie: "Ja, dat herken ik",
+    nee_reactie: "Nee, dat speelt niet bij mij",
+    herkenning: "Alleen doen is een vaardigheid die je ooit moest leren. Maar het is geen karakter. Je kunt het ook anders leren.",
+    patronen: { ja: ["alleen-doener", "scanner"], nee: [] }
   },
   {
     id: 5,
-    tekst: "Je hebt al veel geprobeerd. En toch sta je hier nog — want <em>iets klopt er nog niet.</em>",
-    sub: "Je hebt steeds aan de buitenkant gewerkt. De situatie veranderd, de relatie beëindigd, jezelf aangepast. Maar het patroon bleef.",
+    tekst: "Je hebt al van alles geprobeerd. <em>En toch kom je hier weer.</em>",
+    sub: "Nieuwe relatie, nieuwe kans, dezelfde pijn. Maar ergens weet je dat het antwoord dieper zit dan de situatie.",
     ja_reactie: "Ja, zo voelt het",
     nee_reactie: "Nee, ik ben nog niet zo ver geweest",
     herkenning: "Het patroon zit dieper dan de situaties eromheen. Daar beginnen we.",
-    patronen: { ja: ["perfectionist", "scanner"], nee: [] }
+    patronen: { ja: ["perfectionist", "pleaser", "redder", "scanner", "alleen-doener"], nee: [] }
   }
 ];
 
@@ -444,6 +444,9 @@ function toonLaad() {
 }
 
 function bepaalPatroon() {
+  const totaalJa = jaAntwoorden.length;
+  if (totaalJa === 0) return 'scanner';
+  if (totaalJa === 1) scores['scanner'] += 1;
   let max = -1; let dominant = 'pleaser';
   Object.entries(scores).forEach(([p, s]) => { if (s > max) { max = s; dominant = p; } });
   return dominant;
