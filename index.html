@@ -356,7 +356,13 @@ function toonOpening() {
   maakProgress();
 }
 
-function startSpiegel() { toonZin(0); }
+function startSpiegel() {
+  scores = { pleaser: 0, redder: 0, perfectionist: 0, scanner: 0, "alleen-doener": 0 };
+  jaAntwoorden = [];
+  eigenZin = "";
+  huidigVraag = 0;
+  toonZin(0);
+}
 
 function toonZin(index) {
   if (index >= ZINNEN.length) { toonOpenVraag(); return; }
