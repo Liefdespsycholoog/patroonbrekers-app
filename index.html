@@ -195,6 +195,15 @@ body { font-family: 'Jost', sans-serif; background: var(--creme); color: var(--t
   letter-spacing: 0.05em; transition: all 0.3s ease;
 }
 .btn-wachtlijst:hover { background: #e8c97a; transform: translateY(-2px); }
+.cta-sub-2 { font-size: 0.78rem; color: rgba(255,253,248,0.45); margin-top: 1.25rem; margin-bottom: 0.6rem; font-weight: 300; }
+.btn-nieuwsbrief {
+  display: inline-block; background: transparent; color: rgba(255,253,248,0.7);
+  text-decoration: none; border-radius: 3rem; padding: 0.65rem 1.5rem;
+  font-family: 'Jost', sans-serif; font-size: 0.82rem; font-weight: 300;
+  letter-spacing: 0.03em; transition: all 0.3s ease;
+  border: 1px solid rgba(255,253,248,0.25);
+}
+.btn-nieuwsbrief:hover { color: white; border-color: rgba(255,253,248,0.6); }
 
 @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes bounce { 0%, 60%, 100% { transform: translateY(0); opacity: 0.3; } 30% { transform: translateY(-8px); opacity: 1; } }
@@ -502,7 +511,7 @@ Haar eigen zin over liefde en relaties: "${eigenZin || 'ze heeft niets ingevuld'
 Schrijf nu haar persoonlijke uitslag.`;
 
   try {
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
+    const response = await fetch('/api/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -566,7 +575,7 @@ function toonUitslag(dominant, aiTekst) {
       <div class="cta-blok" id="ctaBlok">
         <p class="cta-tekst">"Patroonbrekers is voor vrouwen zoals jij, boven de 45, klaar om het anders te gaan doen."</p>
         <p class="cta-sub">Het programma opent binnenkort. Zet je op de wachtlijst en je bent als eerste.</p>
-        <a href="https://www.liefdespsycholoog.nl/wachtlijst-patroonbrekers" target="_blank" class="btn-wachtlijst">Ja, zet me op de wachtlijst</a>
+        <a href="https://www.liefdespsycholoog.nl/wachtlijst-patroonbrekers" target="_blank" class="btn-wachtlijst">Ja, zet me op de wachtlijst</a><p class="cta-sub-2">Nog niet klaar voor Patroonbrekers?</p><a href="https://www.liefdespsycholoog.nl/aanmelding-nieuwsbrief" target="_blank" class="btn-nieuwsbrief">Schrijf je in voor de nieuwsbrief</a>
       </div>
     </div>
   `, 'scene-uitslag');
