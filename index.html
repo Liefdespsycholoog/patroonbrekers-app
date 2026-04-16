@@ -267,12 +267,21 @@ const ZINNEN = [
   },
   {
     id: 5,
+    tekst: "Als het te dichtbij komt, doe jij <em>een stapje terug.</em>",
+    sub: "Je wil verbinding. Echt. Maar op het moment dat iemand dichterbij komt, voel je iets in je sluiten. Alsof nabijheid gevaarlijker is dan afstand.",
+    ja_reactie: "Ja, dit herken ik",
+    nee_reactie: "Nee, dit ben ik niet",
+    herkenning: "Die beweging naar achteren is geen onverschilligheid. Het is bescherming. Ooit was die bescherming nodig.",
+    patronen: { ja: ["vermijder", "scanner"], nee: [] }
+  },
+  {
+    id: 6,
     tekst: "Je hebt al van alles geprobeerd. <em>En toch kom je hier weer.</em>",
     sub: "Nieuwe relatie, nieuwe kans, dezelfde pijn. Maar ergens weet je dat het antwoord dieper zit dan de situatie.",
     ja_reactie: "Ja, zo voelt het",
     nee_reactie: "Nee, ik ben nog niet zo ver geweest",
     herkenning: "Het patroon zit dieper dan de situaties eromheen. Daar beginnen we.",
-    patronen: { ja: ["perfectionist", "pleaser", "redder", "scanner", "alleen-doener"], nee: [] }
+    patronen: { ja: ["perfectionist", "pleaser", "redder", "scanner", "alleen-doener", "vermijder"], nee: [] }
   }
 ];
 
@@ -306,11 +315,17 @@ const PATRONEN_DATA = {
     kern: "Je hebt geleerd dat je het zelf moet doen. Je hebt ervaren dat anderen er niet altijd voor je waren. Dus leerde je het zelf te doen.",
     prijs: "Wat het je kost: je vraagt niet om hulp. Je laat niemand echt toe. De verbinding die je wil, houd je zelf buiten door die muur van zelfstandigheid.",
     hoop: "Je kracht is echt. En je hoeft niet meer alleen te staan. Dat is wat er te leren valt: veiliger worden met anderen."
+  },
+  vermijder: {
+    naam: "De Vermijder",
+    kern: "Je wil verbinding. Maar als iemand echt dichtbij komt, trek je je terug. Niet omdat je niet wil. Omdat nabijheid ergens gevaarlijk voelt.",
+    prijs: "Wat het je kost: de intimiteit waar je naar verlangt, houd je op afstand met dezelfde beweging die je ooit heeft beschermd. Je bent eenzaam in relaties.",
+    hoop: "Dit patroon is geen karakter. Het is een oud beschermingsmechanisme. En bescherming die je niet meer nodig hebt, kun je ook loslaten."
   }
 };
 
 const TOTAAL_ZINNEN = ZINNEN.length;
-let scores = { pleaser: 0, redder: 0, perfectionist: 0, scanner: 0, "alleen-doener": 0 };
+let scores = { pleaser: 0, redder: 0, perfectionist: 0, scanner: 0, "alleen-doener": 0, vermijder: 0 };
 let jaAntwoorden = [];
 let eigenZin = "";
 
@@ -366,7 +381,7 @@ function toonOpening() {
 }
 
 function startSpiegel() {
-  scores = { pleaser: 0, redder: 0, perfectionist: 0, scanner: 0, "alleen-doener": 0 };
+  scores = { pleaser: 0, redder: 0, perfectionist: 0, scanner: 0, "alleen-doener": 0, vermijder: 0 };
   jaAntwoorden = [];
   eigenZin = "";
   huidigVraag = 0;
