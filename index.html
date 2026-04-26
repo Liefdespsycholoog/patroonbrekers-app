@@ -222,7 +222,7 @@ body { font-family: 'Jost', sans-serif; background: var(--creme); color: var(--t
 const ZINNEN = [
   {
     id: 0,
-    tekst: "Je weet precies wanneer iemand anders ontevreden is. <em>Nog voordat hij het zegt.</em>",
+    tekst: "Je weet precies wanneer iemand anders ontevreden is. <em>Nog voordat hij of zij het zegt.</em>",
     sub: "Je voelt de stemming in de kamer. Je past je aan. Je zorgt dat het goed blijft. Maar niet omdat je dat wil, omdat het anders voelt als jouw fout.",
     ja_reactie: "Ja, dit herken ik",
     nee_reactie: "Nee, dit ben ik niet",
@@ -232,7 +232,7 @@ const ZINNEN = [
   {
     id: 1,
     tekst: "Je houdt het meest van mensen <em>die je nodig hebben.</em>",
-    sub: "Als iemand het moeilijk heeft, word jij groter. Je weet wat hij nodig heeft. Je zorgt. Maar als hij het goed gaat, merk je dat je jezelf soms minder nodig voelt.",
+    sub: "Als iemand het moeilijk heeft, word jij groter. Je weet wat hij of zij nodig heeft. Je zorgt. Maar als het de ander goed gaat, merk je dat je jezelf soms minder nodig voelt.",
     ja_reactie: "Ja, dat herken ik",
     nee_reactie: "Nee, dit ben ik niet",
     herkenning: "Zorgen voelt als liefde. Maar ergens weet je dat het ook een manier is om jezelf onmisbaar te maken.",
@@ -249,7 +249,7 @@ const ZINNEN = [
   },
   {
     id: 3,
-    tekst: "Je let altijd op. Op wat hij zegt, hoe hij het zegt, <em>wat hij niet zegt.</em>",
+    tekst: "Je let altijd op. Op wat de ander zegt, hoe het gezegd wordt, <em>wat er niet gezegd wordt.</em>",
     sub: "Je hebt geleerd dat mensen je kunnen kwetsen. Dus hou je ze een beetje op afstand. Voor de zekerheid.",
     ja_reactie: "Ja, dit klopt",
     nee_reactie: "Nee, ik herken dit niet",
@@ -277,7 +277,7 @@ const ZINNEN = [
   {
     id: 6,
     tekst: "Je hebt al van alles geprobeerd. <em>En toch kom je hier weer.</em>",
-    sub: "Nieuwe relatie, nieuwe kans, dezelfde pijn. Maar ergens weet je dat het antwoord dieper zit dan de situatie.",
+    sub: "Nieuwe situatie, nieuwe kans, dezelfde pijn. In je werk, in je relaties, in jezelf. Maar ergens weet je dat het antwoord dieper zit dan de situatie.",
     ja_reactie: "Ja, zo voelt het",
     nee_reactie: "Nee, ik ben nog niet zo ver geweest",
     herkenning: "Het patroon zit dieper dan de situaties eromheen. Daar beginnen we.",
@@ -288,38 +288,38 @@ const ZINNEN = [
 const PATRONEN_DATA = {
   pleaser: {
     naam: "De Pleaser",
-    kern: "Je stelt jezelf opzij voor de harmonie. Je zegt ja terwijl je nee bedoelt. Je voelt je verantwoordelijk voor hoe anderen zich voelen.",
-    prijs: "Wat het je kost: je weet niet meer precies wie je bent los van de mensen om je heen. Je eigen stem is zacht geworden.",
+    kern: "Je stelt jezelf opzij voor de harmonie. Je zegt ja terwijl je nee bedoelt. Je voelt je verantwoordelijk voor hoe anderen zich voelen. In je werk, met je kinderen, met je vriendinnen, in je relaties.",
+    prijs: "Wat het je kost: je weet niet meer precies wie je bent los van de mensen om je heen. Je eigen stem is zacht geworden. Je raakt langzaam jezelf kwijt.",
     hoop: "Dit patroon is ooit ontstaan om veilig te zijn. En je bent inmiddels iemand die het anders kan doen."
   },
   redder: {
     naam: "De Redder",
-    kern: "Je kiest mensen die jij kunt helpen. Je voelt je pas echt waardevol als je nodig bent.",
-    prijs: "Wat het je kost: echte gelijkwaardige liefde voelt onbekend. Want als de ander jou niet nodig heeft, wat ben jij dan nog?",
+    kern: "Je trekt mensen aan die jou nodig hebben. Op je werk, in je vriendschappen, in je relaties. Je voelt je pas echt waardevol als iemand iets aan je heeft.",
+    prijs: "Wat het je kost: gelijkwaardige verbinding voelt onbekend. Want als de ander jou niet nodig heeft, wat ben jij dan nog?",
     hoop: "Je waarde zit niet in wat je doet voor anderen. Dat is iets wat je kunt leren voelen."
   },
   perfectionist: {
     naam: "De Perfectionist",
-    kern: "Je stelt hoge eisen aan jezelf. Fouten voelen als bewijs dat je niet goed genoeg bent.",
+    kern: "Je stelt hoge eisen aan jezelf. In alles. Je werk, je lichaam, hoe je moeder bent, hoe je vriendin bent. Fouten voelen als bewijs dat je niet goed genoeg bent.",
     prijs: "Wat het je kost: je leeft in de toekomst. Als ik dit bereikt heb, dan mag ik er zijn. Maar die dag komt steeds niet.",
     hoop: "Achter die hoge lat zit iemand die heel graag gezien wil worden. Die persoon verdient het om er te zijn, nu al."
   },
   scanner: {
     naam: "De Scanner",
-    kern: "Je observeert. Je houdt iedereen een beetje op afstand. Je maakt verbinding, maar als het te dichtbij komt, doe je onbewust een stapje terug.",
-    prijs: "Wat het je kost: de intimiteit waar je naar verlangt, houd je zelf op een armlengte afstand.",
+    kern: "Je observeert. Je houdt mensen een beetje op afstand. In gesprekken, in vriendschappen, in relaties. Je maakt verbinding, en als het te dichtbij komt, doe je onbewust een stapje terug.",
+    prijs: "Wat het je kost: de nabijheid waar je naar verlangt, houd je zelf op een armlengte afstand.",
     hoop: "Dichtbij zijn is kwetsbaar. En kwetsbaar zijn is iets wat je ooit hebt afgeleerd. Je kunt het ook weer aanleren."
   },
   "alleen-doener": {
     naam: "De Alleen-doener",
-    kern: "Je hebt geleerd dat je het zelf moet doen. Je hebt ervaren dat anderen er niet altijd voor je waren. Dus leerde je het zelf te doen.",
+    kern: "Je hebt geleerd dat je het zelf moet doen. Je hebt ervaren dat anderen er niet altijd voor je waren. Dus leerde je het zelf te doen. In alles.",
     prijs: "Wat het je kost: je vraagt niet om hulp. Je laat niemand echt toe. De verbinding die je wil, houd je zelf buiten door die muur van zelfstandigheid.",
     hoop: "Je kracht is echt. En je hoeft niet meer alleen te staan. Dat is wat er te leren valt: veiliger worden met anderen."
   },
   vermijder: {
     naam: "De Vermijder",
     kern: "Je wil verbinding. Maar als iemand echt dichtbij komt, trek je je terug. Niet omdat je niet wil. Omdat nabijheid ergens gevaarlijk voelt.",
-    prijs: "Wat het je kost: de intimiteit waar je naar verlangt, houd je op afstand met dezelfde beweging die je ooit heeft beschermd. Je bent eenzaam in relaties.",
+    prijs: "Wat het je kost: de intimiteit waar je naar verlangt, houd je op afstand met dezelfde beweging die je ooit heeft beschermd. Je bent eenzaam in je relaties, ook tussen mensen in.",
     hoop: "Dit patroon is geen karakter. Het is een oud beschermingsmechanisme. En bescherming die je niet meer nodig hebt, kun je ook loslaten."
   }
 };
@@ -372,8 +372,8 @@ function toonOpening() {
   toonScene(`
     <div class="scene-inner">
       <p class="opening-label">Caroline Korsten, De Liefdespsycholoog</p>
-      <h1 class="opening-title">Zelfde man, ander jasje...<br>zelfde verhaal.<br><em>De man is niet het probleem.</em></h1>
-      <p class="opening-sub">Ik leg je een paar zinnen voor. Herken je ze? Dan weet je aan het einde welk patroon jij steeds herhaalt. En waarom juist díe man steeds op je pad komt.</p>
+      <h1 class="opening-title">Hetzelfde patroon, ander leven... <em>zelfde verhaal.</em></h1>
+      <p class="opening-sub">Of het nu gaat om je werk, je relaties, je vriendschappen of jezelf. Je merkt dat je steeds tegen hetzelfde aanloopt. Ik leg je een paar zinnen voor. Herken je ze? Dan weet je aan het einde welk patroon jij steeds herhaalt.</p>
       <button class="btn-start" onclick="startSpiegel()">Ja, ik wil weten wat mijn patroon is</button>
     </div>
   `, 'scene-opening');
@@ -440,7 +440,7 @@ function toonOpenVraag() {
     <div class="scene-inner">
       <p class="open-vraag-label">Laatste vraag</p>
       <div class="goud-lijn"></div>
-      <p class="open-vraag-tekst">Wat is de zin die jij jezelf het vaakst hoort zeggen over liefde of relaties?</p>
+      <p class="open-vraag-tekst">Wat is de zin die jij jezelf het vaakst hoort zeggen, in je hoofd of hardop?</p>
       <p class="open-vraag-sub">Schrijf de eerste zin die in je opkomt. Er is geen goed of fout antwoord.</p>
       <div class="open-input-wrapper">
         <textarea class="open-input" id="eigenInput" placeholder="De eerste zin die in je opkomt..." rows="3"></textarea>
@@ -491,6 +491,8 @@ async function genereerUitslag() {
 
 TOON: Warm, direct, eerlijk. Schrijf zoals je praat. Geen jargon. Geen wollige taal. Korte en lange zinnen afwisselend. Elke zin telt.
 
+CONTEXT: Patronen lopen door iemands hele leven. Door werk, relaties, vriendschappen, ouderschap, hoe ze met zichzelf omgaat. Het is niet alleen een liefdesvraag. Schrijf vanuit dat brede perspectief, niet vanuit alleen "het juiste type partner aantrekken".
+
 VERBODEN CONSTRUCTIES — gebruik deze nooit:
 - "niet X maar Y" (bijv. "niet zwakker worden, maar veiliger")
 - "geen X maar Y" (bijv. "geen quiz maar een gesprek")
@@ -510,10 +512,10 @@ ALINEA 1:
 Begin met "Wat ik in jou zie..." Beschrijf het patroon concreet. Gebruik haar eigen zin die ze invulde als spiegel — echo die letterlijk terug en laat zien wat jij daarin hoort. Verbind dit met wat ze herkende. Noem de naam van het patroon aan het einde van deze alinea.
 
 ALINEA 2:
-Benoem wat dit patroon haar kost. Heel concreet. Wat mist ze? Wat geeft ze weg? Koppel dit aan haar eigen woorden en keuzes. Iets wat ze direct herkent uit haar leven.
+Benoem wat dit patroon haar kost. Heel concreet. Wat mist ze? Wat geeft ze weg? Koppel dit aan haar eigen woorden. Iets wat ze direct herkent uit haar leven, in werk, in relaties, of in zichzelf.
 
 ALINEA 3:
-Dit patroon is wat ze geleerd heeft. Ze hoeft het niet kwijt te raken, ze leert het herkennen op het moment dat het gebeurt. Dan kan ze een andere keuze maken. En dat trekt een ander type man aan. Sluit af met één zin die een vuurtje aansteekt.
+Dit patroon is wat ze geleerd heeft. Ze hoeft het niet kwijt te raken, ze leert het herkennen op het moment dat het gebeurt. Dan kan ze een andere keuze maken. En dat verandert hoe ze in haar leven staat. Sluit af met één zin die een vuurtje aansteekt.
 
 BELANGRIJK: Geen titels. Geen koppen. Geen **tekst**. Geen markdown. Alleen drie alinea's lopende tekst gescheiden door een lege regel.`;
 
@@ -521,7 +523,7 @@ BELANGRIJK: Geen titels. Geen koppen. Geen **tekst**. Geen markdown. Alleen drie
 
 Zinnen die ze herkenden: ${herkenningen || 'geen specifieke zinnen aangeklikt'}
 
-Haar eigen zin over liefde en relaties: "${eigenZin || 'ze heeft niets ingevuld'}"
+Haar eigen zin: "${eigenZin || 'ze heeft niets ingevuld'}"
 
 Schrijf nu haar persoonlijke uitslag.`;
 
@@ -583,7 +585,7 @@ function toonUitslag(dominant, aiTekst) {
         </div>
         <div class="perspectief-stap">
           <span class="stap-nr">3</span>
-          <p class="stap-tekst">Je merkt dat je <strong>een ander type man aantrekt.</strong> Omdat jij anders in de wereld staat.</p>
+          <p class="stap-tekst">Je merkt dat je leven anders gaat lopen. <strong>In je relaties, in je werk, in jezelf.</strong> Omdat jij anders in de wereld staat.</p>
         </div>
       </div>
 
