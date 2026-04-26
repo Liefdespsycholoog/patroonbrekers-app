@@ -411,27 +411,10 @@ function antwoord(index, ja) {
   if (ja) {
     z.patronen.ja.forEach(p => { if (scores[p] !== undefined) scores[p]++; });
     jaAntwoorden.push({ zin: z.tekst.replace(/<[^>]+>/g, ''), herkenning: z.herkenning });
-    toonHerkenning(index, z.herkenning);
   } else {
     z.patronen.nee.forEach(p => { if (scores[p] !== undefined) scores[p]++; });
-    toonZin(index + 1);
   }
-}
-
-function toonHerkenning(zinIndex, herkenningTekst) {
-  const volgende = zinIndex + 1;
-  const isLaatste = volgende >= TOTAAL_ZINNEN;
-  toonScene(`
-    <div class="scene-inner">
-      <div class="herkenning">
-        <p class="herkenning-label">Wat ik hoor</p>
-        <p class="herkenning-tekst">"${herkenningTekst}"</p>
-      </div>
-      <button class="btn-ja" onclick="${isLaatste ? 'toonOpenVraag()' : `toonZin(${volgende})`}" style="max-width:380px; margin:0 auto; display:block;">
-        ${isLaatste ? 'Bijna klaar, nog één vraag' : 'Verder'}
-      </button>
-    </div>
-  `, `scene-herkenning-${zinIndex}`);
+  toonZin(index + 1);
 }
 
 function toonOpenVraag() {
